@@ -34,7 +34,7 @@ public class App {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		System.out.println("Done?");
+		logger.debug("Finishing main app");
     }
     
     public static String[] getProcessArguments() {
