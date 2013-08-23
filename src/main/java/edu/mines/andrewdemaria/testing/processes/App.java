@@ -35,24 +35,28 @@ public class App {
 			p = b.start();
 			
 			
-//			OutputStream stdin = p.getOutputStream ();
-//			InputStream stderr = p.getErrorStream ();
+			OutputStream stdin = p.getOutputStream ();
+//			InputStream stderr = p.getErrorStream (); // redirected so not needed
 			InputStream stdout = p.getInputStream ();
-//
+			
 			BufferedReader reader = new BufferedReader (new InputStreamReader(stdout));
-//			BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(stdin));
+			BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(stdin));
 			
 			
 			OutputEater eat = new OutputEater(reader);
 			Thread eating = new Thread(eat);
 			eating.start();
 			
+			InputFeeder feed = new InputFeeder(writer);
+			feed.start();
+			
 			
 			p.waitFor();
 			
-			
+			feed.finish();
 			eat.finish();
-			eating.join();
+			//feeding.join();
+			//eating.join();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

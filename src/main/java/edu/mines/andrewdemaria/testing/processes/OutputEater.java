@@ -6,7 +6,7 @@ import java.io.IOException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-public class OutputEater implements Runnable {
+public class OutputEater extends Thread {
 	
 	static Logger logger = LogManager.getLogger(OutputEater.class.getName());
 
@@ -39,7 +39,8 @@ public class OutputEater implements Runnable {
 			}
 		} catch (IOException e) {
 			logger.error("Could not read from stream");
-		}
+		} 
+
 	}
 
 }
