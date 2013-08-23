@@ -6,6 +6,9 @@ import java.net.URL;
 import java.net.URLClassLoader;
 import java.util.ArrayList;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 /**
  * Hello world!
  *
@@ -13,11 +16,12 @@ import java.util.ArrayList;
 public class App {
 	
 	private static String MAIN_EXECUTOR = "edu.mines.andrewdemaria.testing.processes.App2";
+	static Logger logger = LogManager.getLogger(App.class.getName());
 
     public static void main( String[] args )
     {
         System.out.println( "Hello World!" );
-        System.out.println("Starting up another application");
+        logger.debug("Starting up another application");
         Process p;
 		try {
 			p = Runtime.getRuntime().exec(getProcessArguments());
