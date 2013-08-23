@@ -41,12 +41,18 @@ public class App {
 //
 			BufferedReader reader = new BufferedReader (new InputStreamReader(stdout));
 //			BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(stdin));
-			String line;
-			while ((line = reader.readLine ()) != null) {
-			    System.out.println ("Stdout: " + line);
-			}
-
+			
+			
+			OutputEater eat = new OutputEater(reader);
+			Thread eating = new Thread(eat);
+			eating.start();
+			
+			
 			p.waitFor();
+			
+			
+			eat.finish();
+			eating.join();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
