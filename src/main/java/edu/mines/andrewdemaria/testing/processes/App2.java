@@ -16,7 +16,7 @@ public class App2 {
 	public static void main(String[] args) {
 		logger.debug("Inside main on other application");
 		System.out.println("Hi from second app!");
-		getInput();
+		//getInput();
 		logger.debug("Exiting main on other application");
 	}
 	

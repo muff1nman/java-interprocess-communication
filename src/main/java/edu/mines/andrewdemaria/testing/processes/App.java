@@ -1,7 +1,13 @@
 package edu.mines.andrewdemaria.testing.processes;
 
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.io.OutputStreamWriter;
 import java.net.URL;
 import java.net.URLClassLoader;
 import java.util.ArrayList;
@@ -24,7 +30,21 @@ public class App {
         logger.debug("Starting up another application");
         Process p;
 		try {
-			p = Runtime.getRuntime().exec(getProcessArguments());
+			ProcessBuilder b = new ProcessBuilder(getProcessArguments());
+			b.redirectErrorStream(true);
+			p = b.start();
+			
+			
+//			OutputStream stdin = p.getOutputStream ();
+//			InputStream stderr = p.getErrorStream ();
+			InputStream stdout = p.getInputStream ();
+//
+			BufferedReader reader = new BufferedReader (new InputStreamReader(stdout));
+//			BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(stdin));
+			String line;
+			while ((line = reader.readLine ()) != null) {
+			    System.out.println ("Stdout: " + line);
+			}
 
 			p.waitFor();
 		} catch (IOException e) {
